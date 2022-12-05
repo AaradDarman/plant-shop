@@ -329,7 +329,7 @@ export async function getServerSideProps(ctx) {
   }
 
   const { data, status } = await axios.get(
-    `http://localhost:8080/api/order/get/${ctx.params.id}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_URL}/api/order/get/${ctx.params.id}`,
     {
       headers: {
         authorization: authorization,

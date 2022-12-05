@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { Breadcrumbs, Typography } from "@mui/material";
 
 import Link from "next/link";
-import Head from "next/head";
 
 const MyBreadCrumbs = ({ breadcrumbs }) => {
   let homeBread = { name: "خانه", slug: "/" };
@@ -24,9 +23,9 @@ const MyBreadCrumbs = ({ breadcrumbs }) => {
     >
       {bcrumbs.map((crumb, idx) => (
         <Crumb
+          key={`${crumb.slug}-${idx}`}
           text={crumb.name}
           href={idx === 0 ? crumb.slug : `/${crumb.slug}`}
-          key={crumb.slug}
           last={idx === breadcrumbs.length - 1}
         />
       ))}
