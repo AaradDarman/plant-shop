@@ -12,18 +12,7 @@ class MyDocument extends Document {
 
   render = () => (
     <Html dir={"rtl"}>
-      <Head>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
-        />
-        <link
-          href="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.css"
-          rel="stylesheet"
-          type="text/css"
-        />
-        {this.props.emotionStyleTags}
-      </Head>
+      <Head>{this.props.emotionStyleTags}</Head>
       <body style={{ direction: "rtl" }}>
         <Main />
         <NextScript />
