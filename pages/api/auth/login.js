@@ -28,10 +28,10 @@ export default (req, res) => {
 
       proxyRes.on("end", () => {
         const isSuccess = proxyRes.statusCode === 200;
-        console.log(req);
         console.log("proxyRes");
-        console.log(res);
 
+        console.log(body);
+        console.log("body");
         console.log(Buffer.concat(body).toString());
         console.log("Buffer.concat(body).toString()");
 
@@ -72,6 +72,6 @@ export default (req, res) => {
  */
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: true,
   },
 };
