@@ -1,15 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { proxy } from "server/proxy";
-import Cors from "cors";
 
 import Cookies from "cookies";
 import { decodeToken } from "utils/token-helper";
 
 const LOGIN_ENDPOINT_PATH = "/user/login";
-
-const cors = Cors({
-  methods: ["POST", "GET", "HEAD"],
-});
 
 export default (req, res) => {
   return new Promise((resolve, reject) => {
