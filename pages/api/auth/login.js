@@ -30,6 +30,8 @@ export default (req, res) => {
         const isSuccess = proxyRes.statusCode === 200;
         console.log(body);
         console.log("body");
+        console.log(Buffer.concat(body).toString());
+        console.log("Buffer.concat(body).toString()");
 
         body = JSON.parse(Buffer.concat(body).toString());
         console.log(body);
