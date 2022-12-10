@@ -17,9 +17,9 @@ import { decodeToken } from "utils/token-helper";
 import useBreakpoints from "utils/useBreakPoints";
 import { orderContext } from "context/order-context";
 import OrderContext from "context/OrderContext";
-import deliveredImg from "public/images/order-delivered.svg";
-import inProgressImg from "public/images/order-in-progress.svg";
-import cancelledImg from "public/images/order-cancelled.svg";
+import deliveredImg from "public/images/delivered.svg";
+import inProgressImg from "public/images/in-progress.svg";
+import cancelledImg from "public/images/cancelled.svg";
 
 const Profile = () => {
   const { user } = useSelector((state) => state);

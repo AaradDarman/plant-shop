@@ -140,10 +140,6 @@ const Header = () => {
                   </a>
                 </Link>
               </>
-            ) : user?.user.isAdmin ? (
-              <Link href="/dashboard" passHref>
-                <a className=" hover:text-accent-700">داشبورد</a>
-              </Link>
             ) : (
               <Link href="/profile" passHref>
                 <a className="hover:text-accent-700">

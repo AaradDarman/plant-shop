@@ -59,7 +59,7 @@ const NavigationDrawer = ({ isOpen, setIsOpen }) => {
                 </Link>
               </li>
               <li className="flex flex-1">
-                <ProductsCategoryDropdown />
+                <ProductsCategoryDropdown onClick={() => setIsOpen(false)} />
               </li>
               <li className="flex flex-1">
                 <Link href="/about" passHref>

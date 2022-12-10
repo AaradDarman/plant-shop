@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { orderContext } from "./order-context";
 import PaymentStatusDialog from "components/modals/PaymentStatusDialog";
 import userApi from "adapters/user-adapter";
+import LoadingComponent from "components/shared/LoadingComponent";
 
 const OrderContext = ({ children }) => {
   const [showStatusDialog, setShowStatusDialog] = useState(false);
@@ -14,6 +15,7 @@ const OrderContext = ({ children }) => {
   const [orderNumber, setOrderNumber] = useState("");
   const [trackingNumber, setTrackingNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [paymentIsLoading, setPaymentIsLoading] = useState(false);
   const [orders, setOrders] = useState([]);
   const [ordersCount, setOrdersCount] = useState({});
 
@@ -64,6 +66,7 @@ const OrderContext = ({ children }) => {
   };
 
   const takeOrder = async () => {
+    setPaymentIsLoading(true);
     try {
       const { data, status } = await axios.post("/api/order", {
         client: user.user._id,
@@ -71,21 +74,26 @@ const OrderContext = ({ children }) => {
       });
       if (status === 200) {
         router.push(data.paymentUrl);
+        setPaymentIsLoading(false);
       }
     } catch (error) {
+      setPaymentIsLoading(false);
       console.log(error);
     }
   };
 
   const payBill = async (orderId) => {
+    setPaymentIsLoading(true);
     try {
       const { data, status } = await axios.post("/api/order/pay", {
         orderId,
       });
       if (status === 200) {
         router.push(data.paymentUrl);
+        setPaymentIsLoading(false);
       }
     } catch (error) {
+      setPaymentIsLoading(false);
       console.log(error);
     }
   };
@@ -118,6 +126,7 @@ const OrderContext = ({ children }) => {
         orderNumber={orderNumber}
         trackingNumber={trackingNumber}
       />
+      <LoadingComponent show={paymentIsLoading} />
     </orderContext.Provider>
   );
 };
