@@ -82,7 +82,6 @@ export const getStaticProps = async () => {
         mostVisitedProducts: mostVisitedData.products,
         bestSellingtProducts: bestSellingtData.products,
       },
-      revalidate: 120,
     };
   } catch (e) {
     return e;

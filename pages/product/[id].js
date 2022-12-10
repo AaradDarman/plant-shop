@@ -52,7 +52,7 @@ const Product = ({
     if (product?.discount) {
       setDiscount(
         product?.discount.includes.find((obj) => obj.size === selectedSize)
-          ?.discount
+          ?.discount ?? 0
       );
     } else {
       setDiscount(0);
@@ -62,6 +62,18 @@ const Product = ({
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSize]);
+
+  const updateViewCount = async () => {
+    try {
+      const { status, data } = await api.updateProductViewCount(product._id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    updateViewCount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const cartItem = cart.items.find(
     (item) => item._id === product._id && item?.size == selectedSize
@@ -418,6 +430,7 @@ export const getStaticProps = async ({ params }) => {
         imageSrces,
         categoryHierarchy: data.product.categoryHierarchy,
       },
+      // revalidate: 120,
     };
   } catch (e) {
     return e;

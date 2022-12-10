@@ -40,6 +40,10 @@ const getProduct = (id) => {
   return http.get(`${process.env.NEXT_PUBLIC_SERVICE_URL}/product/${id}`);
 };
 
+const updateProductViewCount = (id) => {
+  return http.post(`${process.env.NEXT_PUBLIC_SERVICE_URL}/product/${id}`);
+};
+
 const deleteProduct = (id) => {
   return http.delete(`${process.env.NEXT_PUBLIC_SERVICE_URL}/product/${id}`);
 };
@@ -63,6 +67,7 @@ export default {
   getProducts,
   getProductsByCategory,
   getProduct,
+  updateProductViewCount,
   deleteProduct,
   editProduct,
   getBasket,
