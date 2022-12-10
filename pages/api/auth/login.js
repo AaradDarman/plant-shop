@@ -36,13 +36,13 @@ export default (req, res) => {
         console.log(Buffer.concat(body).toString());
         console.log("Buffer.concat(body).toString()");
 
-        body = JSON.parse(Buffer.concat(body).toString());
-        console.log(body);
-        console.log("body after");
+        let token = Buffer.concat(body).toString();
+        console.log(token);
+        console.log("token after");
         if (isSuccess) {
-          let decodedToken = decodeToken(body.token);
+          let decodedToken = decodeToken(token);
           const cookies = new Cookies(req, res);
-          cookies.set("authorization", body.token, {
+          cookies.set("authorization", token, {
             httpOnly: true,
             sameSite: "lax",
             expires: new Date(decodedToken.exp * 1000),
