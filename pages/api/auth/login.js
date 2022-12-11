@@ -30,12 +30,12 @@ export default (req, res) => {
         const isSuccess = proxyRes.statusCode === 200;
         console.log("proxyRes");
 
-        console.log(body);
-        console.log("body");
         console.log(Buffer.concat(body).toString());
         console.log("Buffer.concat(body).toString()");
-
+        
         body = JSON.parse(Buffer.concat(body).toString());
+        console.log(body);
+        console.log("body");
         if (isSuccess) {
           let decodedToken = decodeToken(body.token);
           const cookies = new Cookies(req, res);
@@ -72,6 +72,6 @@ export default (req, res) => {
  */
 export const config = {
   api: {
-    bodyParser: true,
+    bodyParser: false,
   },
 };
