@@ -23,7 +23,6 @@ export default (req, res) => {
 
 export const config = {
   api: {
-    externalResolver: true,
     bodyParser: false,
   },
 };

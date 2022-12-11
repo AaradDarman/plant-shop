@@ -3,6 +3,7 @@ import { proxy } from "server/proxy";
 
 import Cookies from "cookies";
 import jwt from "jsonwebtoken";
+import { decodeToken } from "utils/token-helper";
 
 const LOGIN_ENDPOINT_PATH = "/user/login";
 
@@ -21,30 +22,34 @@ export default (req, res) => {
     proxy.once("proxyRes", (proxyRes, req, res) => {
       let body = [];
 
-      proxyRes.on("data", (chunk) => body.push(chunk));
+      proxyRes.on("data", (chunk) => {
+        body.push(chunk);
+        console.log(chunk);
+      });
 
       // don't forget the catch the errors
       proxyRes.once("error", reject);
 
       proxyRes.on("end", () => {
         const isSuccess = proxyRes.statusCode === 200;
-        console.log(body);
-        body = JSON.parse(Buffer.concat(body).toString());
+        console.log(Buffer.concat(body).toString());
+        let token = Buffer.concat(body).toString();
+        const decodedToken = decodeToken(token);
         if (isSuccess) {
-          const token = jwt.sign(
-            {
-              user: body.user,
-            },
-            "sokolows",
-            { expiresIn: "1h" }
-          );
+          // const token = jwt.sign(
+          //   {
+          //     user: body.user,
+          //   },
+          //   "sokolows",
+          //   { expiresIn: "1h" }
+          // );
 
           const cookies = new Cookies(req, res);
 
           cookies.set("authorization", token, {
             httpOnly: true,
             sameSite: "lax",
-            expires: new Date(token.exp * 1000),
+            expires: new Date(decodedToken.exp * 1000),
           });
 
           res.status(200).json({ token });

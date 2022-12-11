@@ -14,7 +14,7 @@ module.exports = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://plant-shop-api.vercel.app/api/:path*", // Proxy to Backend
+        destination: "https://plant-shop-api.vercel.app/:path*", // Proxy to Backend
       },
     ];
   },
