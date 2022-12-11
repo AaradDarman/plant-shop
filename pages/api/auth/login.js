@@ -28,8 +28,8 @@ export default (req, res) => {
 
       proxyRes.on("end", () => {
         const isSuccess = proxyRes.statusCode === 200;
-        body = JSON.parse(Buffer.concat(body).toString());
         console.log(body);
+        body = JSON.parse(Buffer.concat(body).toString());
         if (isSuccess) {
           const token = jwt.sign(
             {
