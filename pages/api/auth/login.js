@@ -21,7 +21,10 @@ export default (req, res) => {
     proxy.once("proxyRes", (proxyRes, req, res) => {
       let body = [];
 
-      proxyRes.on("data", (chunk) => body.push(chunk));
+      proxyRes.on("data", (chunk) => {
+        body.push(chunk);
+        console.log(chunk);
+      });
 
       // don't forget the catch the errors
       proxyRes.once("error", reject);
@@ -30,14 +33,15 @@ export default (req, res) => {
         const isSuccess = proxyRes.statusCode === 200;
         console.log("proxyRes");
 
-        console.log(Buffer.concat(body).toString());
+        console.log(Buffer.concat(body));
         console.log("Buffer.concat(body).toString()");
-        
+
         body = JSON.parse(Buffer.concat(body).toString());
         console.log(body);
         console.log("body");
         if (isSuccess) {
           let decodedToken = decodeToken(body.token);
+          console.log(decodedToken);
           const cookies = new Cookies(req, res);
           cookies.set("authorization", body.token, {
             httpOnly: true,
