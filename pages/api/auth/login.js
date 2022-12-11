@@ -3,7 +3,6 @@ import { proxy } from "server/proxy";
 
 import Cookies from "cookies";
 import jwt from "jsonwebtoken";
-import { decodeToken } from "utils/token-helper";
 
 const LOGIN_ENDPOINT_PATH = "/user/login";
 
@@ -40,7 +39,7 @@ export default (req, res) => {
           );
 
           const cookies = new Cookies(req, res);
-          
+
           cookies.set("authorization", token, {
             httpOnly: true,
             sameSite: "lax",
