@@ -32,7 +32,7 @@ export default (req, res) => {
 
       proxyRes.on("end", () => {
         const isSuccess = proxyRes.statusCode === 200;
-        console.log(Buffer.concat(body).toString());
+        console.log(Buffer.concat(body));
         let token = Buffer.concat(body).toString();
         const decodedToken = decodeToken(token);
         if (isSuccess) {
