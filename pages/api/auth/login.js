@@ -35,6 +35,7 @@ export default (req, res) => {
         console.log(Buffer.concat(body));
         body = Buffer.concat(body).toString();
         console.log(body);
+        console.log(JSON.stringify(body));
         // const decodedToken = decodeToken(JSON.parse(body));
         const parsedBody = JSON.parse(body);
         if (isSuccess) {
