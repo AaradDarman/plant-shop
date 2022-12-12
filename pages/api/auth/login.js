@@ -33,23 +33,26 @@ export default (req, res) => {
       proxyRes.on("end", () => {
         const isSuccess = proxyRes.statusCode === 200;
         console.log(Buffer.concat(body));
-        let token = Buffer.concat(body).toString();
-        const decodedToken = decodeToken(token);
+        body = Buffer.concat(body).toString();
+        console.log(body);
+        // const decodedToken = decodeToken(JSON.parse(body));
+        const parsedBody = JSON.parse(body);
         if (isSuccess) {
-          // const token = jwt.sign(
-          //   {
-          //     user: body.user,
-          //   },
-          //   "sokolows",
-          //   { expiresIn: "1h" }
-          // );
+          const token = jwt.sign(
+            {
+              user: parsedBody.user,
+            },
+            "sokolows",
+            { expiresIn: "1h" }
+          );
+
 
           const cookies = new Cookies(req, res);
 
           cookies.set("authorization", token, {
             httpOnly: true,
             sameSite: "lax",
-            expires: new Date(decodedToken.exp * 1000),
+            expires: new Date(token.exp * 1000),
           });
 
           res.status(200).json({ token });
