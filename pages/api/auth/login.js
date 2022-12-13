@@ -2,7 +2,7 @@
 import { proxy } from "server/proxy";
 
 import Cookies from "cookies";
-import jwt from "jsonwebtoken";
+import { decodeToken } from "utils/token-helper";
 
 const LOGIN_ENDPOINT_PATH = "/user/login";
 
@@ -28,25 +28,19 @@ export default (req, res) => {
 
       proxyRes.on("end", () => {
         const isSuccess = proxyRes.statusCode === 200;
+
         body = JSON.parse(Buffer.concat(body).toString());
+
         if (isSuccess) {
-          const token = jwt.sign(
-            {
-              user: body.user,
-            },
-            "sokolows",
-            { expiresIn: "1h" }
-          );
-
+          let decodedToken = decodeToken(body.token);
           const cookies = new Cookies(req, res);
-
-          cookies.set("authorization", token, {
+          cookies.set("authorization", body.token, {
             httpOnly: true,
             sameSite: "lax",
-            expires: new Date(token.exp * 1000),
+            expires: new Date(decodedToken.exp * 1000),
           });
 
-          res.status(200).json({ token });
+          res.status(200).json(body);
         } else {
           res.status(proxyRes.statusCode).json(body);
         }

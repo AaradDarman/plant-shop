@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 
 import { login, resetUser } from "redux/slices/user";
+import userApi from "adapters/user-adapter";
 import {
   resetLocalCart,
   setLocalCartItems,
@@ -48,12 +49,12 @@ const Login = (props) => {
     let localBasket = loadState();
     dispatch(login(payload))
       .unwrap()
-      .then((originalPromiseResult) => {
-        console.log(originalPromiseResult);
+      .then(async (originalPromiseResult) => {
+        const { data, status } = await userApi.getUserData();
         if (!isEmpty(localBasket?.items)) {
           dispatch(syncCartToDb(localBasket?.items));
-        } else if (originalPromiseResult.basket.length) {
-          dispatch(setLocalCartItems(originalPromiseResult.basket));
+        } else if (data.user.basket.length) {
+          if (status === 200) dispatch(setLocalCartItems(data.user.basket));
         }
         if (router.query.returnUrl) {
           router.replace(router.query.returnUrl);
