@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import { login, resetUser } from "redux/slices/user";
+import { login, resetUser, setUser } from "redux/slices/user";
 import userApi from "adapters/user-adapter";
 import {
   resetLocalCart,
@@ -51,6 +51,7 @@ const Login = (props) => {
       .unwrap()
       .then(async (originalPromiseResult) => {
         const { data, status } = await userApi.getUserData();
+        dispatch(setUser(data.user));
         if (!isEmpty(localBasket?.items)) {
           dispatch(syncCartToDb(localBasket?.items));
         } else if (data.user.basket.length) {
