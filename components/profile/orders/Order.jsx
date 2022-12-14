@@ -70,6 +70,7 @@ const Order = ({ order }) => {
               alt="order-status"
               width={32}
               height={32}
+              priority
             />
             <span className="mr-2">{optionsCase[order.status]}</span>
             <FontAwesomeIcon
