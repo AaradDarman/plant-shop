@@ -146,10 +146,10 @@ const slice = createSlice({
       state.status = "deleting";
     },
     [getInitialInfo.fulfilled]: (state, action) => {
-      state.cheapest = action.payload.cheapest;
-      state.mostExpensive = action.payload.mostExpensive;
-      state.categories = action.payload.categories;
-      state.sizes = action.payload.sizes;
+      state.cheapest = action.payload?.cheapest;
+      state.mostExpensive = action.payload?.mostExpensive;
+      state.categories = action.payload?.categories;
+      state.sizes = action.payload?.sizes;
       state.status = "idle";
     },
     [getInitialInfo.pending]: (state) => {
