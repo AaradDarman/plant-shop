@@ -82,7 +82,7 @@ const Product = ({
 
   const getProductStock = () => {
     return product.inventory.find((stock) => stock.size === selectedSize)
-      .quantity;
+      ?.quantity;
   };
 
   const handleAddItemToCart = () => {
