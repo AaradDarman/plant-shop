@@ -61,7 +61,7 @@ const Product = ({
       product.inventory.find((stock) => stock.size === selectedSize).price
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSize, product._id]);
+  }, [selectedSize]);
 
   const updateViewCount = async () => {
     try {
