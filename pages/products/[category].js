@@ -98,7 +98,10 @@ export async function getServerSideProps(ctx) {
       productsCount: data?.productsCount,
       categoryHierarchy: [
         { name: "محصولات", slug: `products` },
-        { name: ctx.query.category, slug: `products/${ctx.query.category}` },
+        {
+          name: convetUrlToStringFormat(ctx.query.category),
+          slug: `products/${ctx.query.category}`,
+        },
       ],
     },
   };

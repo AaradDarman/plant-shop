@@ -42,8 +42,10 @@ const OrderContext = ({ children }) => {
         router.query.activeTab
       );
       if (status === 200) {
-        setIsLoading(false);
         setOrders(data.orders);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       }
     } catch (error) {
       setIsLoading(false);
