@@ -46,6 +46,7 @@ const Product = ({
   const [selectedItemPrice, setSelectedItemPrice] = useState(0);
 
   useEffect(() => {
+    setSelectedSize(product?.sizes[0]?.label)
     let pStock = getProductStock();
     setHasStock(pStock > 0);
     setProductStock(pStock);
