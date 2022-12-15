@@ -59,7 +59,7 @@ const Product = ({
       setDiscount(0);
     }
     setSelectedItemPrice(
-      product.inventory.find((stock) => stock.size === selectedSize).price
+      product.inventory.find((stock) => stock.size === selectedSize)?.price
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSize, product?._id]);
@@ -324,7 +324,7 @@ const Product = ({
               <span>
                 {
                   product?.sizes.find((size) => size.label === selectedSize)
-                    .diameter
+                    ?.diameter
                 }
               </span>
             </div>
@@ -335,7 +335,7 @@ const Product = ({
                 ±
                 {
                   product?.sizes.find((size) => size.label === selectedSize)
-                    .height
+                    ?.height
                 }
               </span>
             </div>
