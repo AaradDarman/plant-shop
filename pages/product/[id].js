@@ -46,6 +46,7 @@ const Product = ({
   const [selectedItemPrice, setSelectedItemPrice] = useState(0);
 
   useEffect(() => {
+    setSelectedSize(product?.sizes[0]?.label)
     let pStock = getProductStock();
     setHasStock(pStock > 0);
     setProductStock(pStock);
@@ -58,10 +59,10 @@ const Product = ({
       setDiscount(0);
     }
     setSelectedItemPrice(
-      product.inventory.find((stock) => stock.size === selectedSize).price
+      product.inventory.find((stock) => stock.size === selectedSize)?.price
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSize]);
+  }, [selectedSize, product?._id]);
 
   const updateViewCount = async () => {
     try {
@@ -81,7 +82,7 @@ const Product = ({
 
   const getProductStock = () => {
     return product.inventory.find((stock) => stock.size === selectedSize)
-      .quantity;
+      ?.quantity;
   };
 
   const handleAddItemToCart = () => {
@@ -323,7 +324,7 @@ const Product = ({
               <span>
                 {
                   product?.sizes.find((size) => size.label === selectedSize)
-                    .diameter
+                    ?.diameter
                 }
               </span>
             </div>
@@ -334,7 +335,7 @@ const Product = ({
                 ±
                 {
                   product?.sizes.find((size) => size.label === selectedSize)
-                    .height
+                    ?.height
                 }
               </span>
             </div>
