@@ -46,7 +46,6 @@ const Product = ({
   const [selectedItemPrice, setSelectedItemPrice] = useState(0);
 
   useEffect(() => {
-    setSelectedSize(product?.sizes[0]?.label)
     let pStock = getProductStock();
     setHasStock(pStock > 0);
     setProductStock(pStock);
@@ -63,6 +62,11 @@ const Product = ({
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSize, product?._id]);
+
+  useEffect(() => {
+    setSelectedSize(product?.sizes[0]?.label);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product?._id]);
 
   const updateViewCount = async () => {
     try {
