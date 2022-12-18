@@ -61,7 +61,7 @@ const Product = ({
       product.inventory.find((stock) => stock.size === selectedSize)?.price
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSize, product?._id]);
+  }, [selectedSize]);
 
   useEffect(() => {
     setSelectedSize(product?.sizes[0]?.label);
