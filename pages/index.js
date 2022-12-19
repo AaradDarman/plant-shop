@@ -1,11 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
 import MainLayout from "components/layouts/MainLayout";
 import heroPic from "public/images/hero-plant.png";
-import ProductsSwiperComponent from "components/shared/ProductsSwiperComponent";
+const ProductsSwiperComponent = dynamic(() => import("components/shared/ProductsSwiperComponent"));
 import api from "adapters/adapter";
+
 
 export default function Home({
   mostVisitedProducts,
