@@ -9,16 +9,16 @@ const nextConfig = {
   swcMinify: true,
 };
 
-module.exports = {
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "https://plant-shop-api.vercel.app/:path*", // Proxy to Backend
-      },
-    ];
-  },
-};
+// module.exports = {
+//   async rewrites() {
+//     return [
+//       {
+//         source: "/api/:path*",
+//         destination: "https://plant-shop-api.vercel.app/:path*", // Proxy to Backend
+//       },
+//     ];
+//   },
+// };
 
 module.exports = withBundleAnalyzer(
   withPlaiceholder({

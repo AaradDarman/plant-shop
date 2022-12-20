@@ -18,13 +18,16 @@ import clsx from "clsx";
 import { toast } from "react-toastify";
 import { PulseLoader } from "react-spinners";
 import { useTheme } from "styled-components";
+import dynamic from "next/dynamic";
 
 import { numberWithCommas } from "utils/number-helper";
 import ProductSizeSelector from "components/ProductSizeSelector";
 import ProductImage from "components/ProductImage";
 import MyAccordion from "components/MyAccordion";
 import Icon from "components/shared/Icon";
-import ProductsSwiperComponent from "components/shared/ProductsSwiperComponent";
+const ProductsSwiperComponent = dynamic(() =>
+  import("components/shared/ProductsSwiperComponent")
+);
 import ProductContext from "context/ProductContext";
 import { productContext } from "context/product-context";
 import api from "adapters/adapter";
@@ -62,6 +65,11 @@ const Product = ({
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSize]);
+
+  useEffect(() => {
+    setSelectedSize(product?.sizes[0]?.label);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product?._id]);
 
   useEffect(() => {
     setSelectedSize(product?.sizes[0]?.label);

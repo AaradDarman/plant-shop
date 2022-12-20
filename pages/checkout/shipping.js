@@ -6,6 +6,7 @@ import { Button, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import dynamic from "next/dynamic";
 
 import MainLayout from "components/layouts/MainLayout";
 import CheckoutLayout from "components/layouts/CheckoutLayout";
@@ -14,7 +15,9 @@ import MapContext from "context/MapContext";
 import { orderContext } from "context/order-context";
 import Icon from "components/shared/Icon";
 import useBreakpoints from "utils/useBreakPoints";
-import SwiperComponent from "components/shared/SwiperComponent";
+const SwiperComponent = dynamic(() =>
+  import("components/shared/SwiperComponent")
+);
 import OrderItem from "components/profile/orders/OrderItem";
 
 const Shipping = () => {

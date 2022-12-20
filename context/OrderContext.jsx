@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -34,24 +34,36 @@ const OrderContext = ({ children }) => {
     setShowStatusDialog(true);
   };
 
-  const getOrders = async () => {
-    setIsLoading(true);
-    try {
-      const { data, status } = await userApi.getUserOrders(
-        user.user._id,
-        router.query.activeTab
-      );
-      if (status === 200) {
-        setOrders(data.orders);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
-      }
-    } catch (error) {
+  useEffect(() => {
+    const handleChangeStart = (url) => {
+      if (
+        url === "/" ||
+        url.startsWith("/product/") ||
+        url.startsWith("/checkout") ||
+        url.startsWith("/users/login") ||
+        url.startsWith("/users/signup") ||
+        url.startsWith("/dashboard")||
+        url.startsWith("/profile/orders/") 
+      )
+        return;
+      if (url.startsWith("/profile/orders")) setIsLoading(true);
+    };
+
+    const handleChangeEnd = (url) => {
       setIsLoading(false);
-      console.log(error);
-    }
-  };
+    };
+
+    router.events.on("routeChangeStart", handleChangeStart);
+    router.events.on("routeChangeComplete", handleChangeEnd);
+    router.events.on("routeChangeError", handleChangeEnd);
+
+    return () => {
+      router.events.off("routeChangeStart", handleChangeStart);
+      router.events.off("routeChangeComplete", handleChangeEnd);
+      router.events.off("routeChangeError", handleChangeEnd);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getOrdersCount = async () => {
     setIsLoading(true);
@@ -114,7 +126,6 @@ const OrderContext = ({ children }) => {
         payBill,
         handleShowPaymentStatusDialog,
         getOrdersCount,
-        getOrders,
         orders,
         ordersCount,
         isLoading,
