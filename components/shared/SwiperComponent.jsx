@@ -4,6 +4,7 @@ import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import isEmpty from "lodash/isEmpty";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -45,7 +46,7 @@ const StyledSwiper = styled(Swiper)`
 `;
 
 const SwiperComponent = ({ items, RenderComponent }) => {
-  return true ? (
+  return !isEmpty(items) ? (
     <>
       <StyledSwiper
         dir="rtl"

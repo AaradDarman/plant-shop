@@ -44,8 +44,8 @@ const getUserData = () => {
   return http.get(`/api/user/user-data`);
 };
 
-const getUserOrders = (userId, activeTab = "in-progress") => {
-  return http.get(`/api/order/${userId}?activeTab=${activeTab}`);
+const getUserOrders = ( activeTab = "in-progress") => {
+  return http.get(`/api/order?activeTab=${activeTab}`);
 };
 
 const getUserOrdersCount = (userId) => {

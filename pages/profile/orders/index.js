@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 import Cookies from "cookies";
 import dynamic from "next/dynamic";
 const PulseLoader = dynamic(() => import("react-spinners/PulseLoader"));
@@ -17,25 +16,19 @@ import { decodeToken } from "utils/token-helper";
 import { Typography } from "@mui/material";
 import Head from "next/head";
 import OrderContext from "context/OrderContext";
+import http from "adapters/xhr/index";
 import emptyListImg from "public/images/empty.svg";
 
-const Orders = () => {
+const Orders = ({
+  orders,
+  inProgressOrdersCount,
+  deliveredOrdersCount,
+  cancelledOrdersCount,
+}) => {
   const router = useRouter();
   const { handleShowPaymentStatusDialog } = useContext(orderContext);
-  const { user } = useSelector((state) => state);
   const theme = useTheme();
-  const { getOrdersCount, getOrders, ordersCount, orders, isLoading } =
-    useContext(orderContext);
-
-  useEffect(() => {
-    getOrdersCount();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    getOrders();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.activeTab]);
+  const { isLoading } = useContext(orderContext);
 
   useEffect(() => {
     if (router.query.status) {
@@ -63,7 +56,11 @@ const Orders = () => {
       <OrdersSortOption
         onSortChange={handleTabChange}
         value={router.query.activeTab}
-        ordersCount={ordersCount}
+        ordersCount={{
+          inProgressOrdersCount,
+          deliveredOrdersCount,
+          cancelledOrdersCount,
+        }}
       />
       {isLoading ? (
         <PulseLoader
@@ -110,8 +107,24 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
+
+  const { data, status } = await http.get(
+    `${process.env.NEXT_PUBLIC_SERVICE_URL}/order?activeTab=${
+      ctx.query.activeTab || "in-progress"
+    }`,
+    {
+      headers: {
+        authorization: authorization,
+      },
+    }
+  );
   return {
-    props: {},
+    props: {
+      orders: data.orders,
+      inProgressOrdersCount: data.inProgressOrdersCount,
+      deliveredOrdersCount: data.deliveredOrdersCount,
+      cancelledOrdersCount: data.cancelledOrdersCount,
+    },
   };
 }
 
