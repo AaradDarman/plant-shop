@@ -13,7 +13,7 @@ import isEmpty from "lodash/isEmpty";
 import Product from "components/Product";
 
 const StyledSwiper = styled(Swiper)`
-  padding: 5rem 0;
+  padding: 5rem 0 !important;
   .swiper-button-next,
   .swiper-button-prev {
     color: #005c0e;
