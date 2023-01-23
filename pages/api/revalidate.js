@@ -15,7 +15,7 @@ export default async function handler(req, res) {
         async (id) => await res.revalidate(`/product/${id}`)
       )
     );
-    await res.revalidate(`/`)
+    await res.revalidate(`/`);
 
     return res.json({ revalidated: true });
   } catch (err) {

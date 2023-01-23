@@ -32,6 +32,7 @@ import ProductContext from "context/ProductContext";
 import { productContext } from "context/product-context";
 import api from "adapters/adapter";
 import { calculateDiscountedPrice } from "utils/product-helper";
+import { isDiscountArrive } from "utils/date-helper";
 
 const Product = ({
   product,
@@ -52,7 +53,7 @@ const Product = ({
     let pStock = getProductStock();
     setHasStock(pStock > 0);
     setProductStock(pStock);
-    if (product?.discount) {
+    if (isDiscountArrive(product?.discount)) {
       setDiscount(
         product?.discount.includes.find((obj) => obj.size === selectedSize)
           ?.discount ?? 0
@@ -64,7 +65,7 @@ const Product = ({
       product.inventory.find((stock) => stock.size === selectedSize)?.price
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSize]);
+  }, [selectedSize, product]);
 
   useEffect(() => {
     setSelectedSize(product?.sizes[0]?.label);

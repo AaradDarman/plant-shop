@@ -14,6 +14,7 @@ import {
   getMaxDiscount,
 } from "utils/product-helper";
 import { shorten } from "utils/string-helper";
+import { isDiscountArrive } from "utils/date-helper";
 
 const Product = ({
   name,
@@ -28,11 +29,13 @@ const Product = ({
   const [maxDiscount, setMaxDiscount] = useState({});
   const [maxPrice, setMaxPrice] = useState(0);
   const [hasStock, setHasStock] = useState(true);
+  const [hasDiscount, setHasDiscount] = useState(false);
 
   useEffect(() => {
     let pStock = getProductStock();
     setHasStock(pStock.some((stock) => stock > 0));
-    if (discount) {
+    setHasDiscount(isDiscountArrive(discount));
+    if (isDiscountArrive(discount)) {
       setMaxDiscount(getMaxDiscount(discount.includes));
       setMaxPrice(
         inventory?.find(
@@ -71,10 +74,10 @@ const Product = ({
           </div>
           {hasStock ? (
             <div className="my-[15px] mt-auto flex justify-between font-bold">
-              {discount && (
+              {hasDiscount && (
                 <Chip
                   label={`${
-                    discount && getMaxDiscount(discount?.includes).discount
+                    hasDiscount && getMaxDiscount(discount?.includes).discount
                   }%`}
                   color="error"
                   size="small"
@@ -82,7 +85,7 @@ const Product = ({
               )}
               <div className="flex flex-col">
                 <span>{`${
-                  discount
+                  hasDiscount
                     ? numberWithCommas(
                         calculateDiscountedPrice(maxPrice, maxDiscount.discount)
                       )

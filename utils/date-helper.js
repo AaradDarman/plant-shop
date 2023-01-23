@@ -52,3 +52,10 @@ export const getDateOnly = (date) => {
   let dateString = time.format("YYYY/MM/DD");
   return dateString;
 };
+
+export const isDiscountArrive = (discount) => {
+  const startDate = dayjs(discount?.startDate);
+  const now = dayjs();
+  if (discount) return now.isAfter(startDate);
+  return false;
+};
