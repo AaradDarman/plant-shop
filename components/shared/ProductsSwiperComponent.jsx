@@ -74,7 +74,6 @@ const ProductsSwiperComponent = ({ products }) => {
           pauseOnMouseEnter: true,
         }}
         navigation
-        className="lg:!-mx-16 xl:!-mx-8"
       >
         {products.map((item) => (
           <SwiperSlide key={item._id}>
