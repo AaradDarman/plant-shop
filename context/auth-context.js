@@ -7,6 +7,8 @@ export const authContext = createContext({
   setLName: () => {},
   email: "",
   setEmail: () => {},
+  username: "",
+  setUsername: () => {},
   personalCode: "",
   setPersonalCode: () => {},
   phoneNumber: "",

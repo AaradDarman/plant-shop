@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import axios from "axios";
 import isEmpty from "lodash/isEmpty";
@@ -13,6 +13,7 @@ import { addNewAddress, deleteAddress, editAddress } from "redux/slices/user";
 import LoadingComponent from "components/shared/LoadingComponent";
 import { useDebounce } from "components/hooks/useDebounce";
 import { mapContext } from "./map-context";
+import { orderContext } from "./order-context";
 
 const MapContext = ({ children }) => {
   const [isAddAddressModalOpen, setIsAddAddressModalOpen] = useState(false);
@@ -40,6 +41,7 @@ const MapContext = ({ children }) => {
   const [receiverFName, setReceiverFName] = useState("");
   const [receiverLName, setReceiverLName] = useState("");
   const [receiverPhone, setReceiverPhone] = useState("");
+  const { setSelectedAddress, selectedAddress } = useContext(orderContext);
 
   const openAddAddressModal = () => {
     setIsAddAddressModalOpen(true);
@@ -293,6 +295,8 @@ const MapContext = ({ children }) => {
       <SelectAddressModal
         isOpen={isSelectAddressModalOpen}
         onClose={closeSelectAddressModal}
+        onSelect={setSelectedAddress}
+        selected={selectedAddress}
       />
       <DeleteAddressModal
         isOpen={isDeleteAddressModalOpen}

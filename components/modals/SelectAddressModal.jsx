@@ -32,11 +32,10 @@ const modalStyle = {
   boxShadow: 0,
 };
 
-const SelectAddressModal = ({ isOpen, onClose }) => {
+const SelectAddressModal = ({ isOpen, onClose, onSelect, selected }) => {
   const { openAddAddressModal } = useContext(mapContext);
-  const { selectedAddress, setSelectedAddress } = useContext(orderContext);
   const handleChangeSelectedAddress = (e) => {
-    setSelectedAddress(JSON.parse(e.target.value));
+    onSelect(JSON.parse(e.target.value));
     onClose();
   };
   const { user } = useSelector((state) => state);
@@ -105,32 +104,34 @@ const SelectAddressModal = ({ isOpen, onClose }) => {
               <FontAwesomeIcon icon={faChevronLeft} width={19} />
             </IconButton>
           </div>
-          <FormControl className="form-wraper">
-            <RadioGroup
-              className="mt-3"
-              value={JSON.stringify(selectedAddress)}
-              onChange={handleChangeSelectedAddress}
-              sx={{
-                "& .MuiButtonBase-root.Mui-checked": {
-                  color:
-                    theme.palette.mode === "dark"
-                      ? "accent.main"
-                      : "accent.600",
-                },
-              }}
-            >
-              {!isEmpty(user?.user) &&
-                user?.user?.addresses.map((address) => (
-                  <FormControlLabel
-                    className="mx-0 flex items-start"
-                    key={address._id}
-                    value={JSON.stringify(address)}
-                    control={<Radio />}
-                    label={<Label item={address} />}
-                  />
-                ))}
-            </RadioGroup>
-          </FormControl>
+          {user?.user?.addresses.length > 0 && (
+            <FormControl className="form-wraper max-h-[400px] overflow-y-auto">
+              <RadioGroup
+                className="mt-3"
+                value={JSON.stringify(selected)}
+                onChange={handleChangeSelectedAddress}
+                sx={{
+                  "& .MuiButtonBase-root.Mui-checked": {
+                    color:
+                      theme.palette.mode === "dark"
+                        ? "accent.main"
+                        : "accent.600",
+                  },
+                }}
+              >
+                {!isEmpty(user?.user) &&
+                  user?.user?.addresses.map((address) => (
+                    <FormControlLabel
+                      className="mx-0 flex items-start"
+                      key={address._id}
+                      value={JSON.stringify(address)}
+                      control={<Radio />}
+                      label={<Label item={address} />}
+                    />
+                  ))}
+              </RadioGroup>
+            </FormControl>
+          )}
         </Box>
       </Fade>
     </Modal>

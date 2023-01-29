@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import isEmpty from "lodash/isEmpty";
@@ -21,6 +21,7 @@ import MainLayout from "components/layouts/MainLayout";
 import AuthContext from "context/AuthContext";
 import { loadState } from "utils/browser-storage";
 import { toEnglishDigits } from "utils/number-helper";
+import { authContext } from "context/auth-context";
 
 const StyledWraper = styled.div`
   height: calc(100vh - 58px);
@@ -29,8 +30,8 @@ const StyledWraper = styled.div`
 const Login = (props) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { username, setUsername } = useContext(authContext);
   const { user } = useSelector((state) => state);
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const theme = useTheme();
 

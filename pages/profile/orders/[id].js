@@ -72,7 +72,10 @@ const Order = ({ order }) => {
 
   useEffect(() => {
     let discountedTotalPrice = calculateDiscountedTotalPrice(order.items);
-    let totalP = order.items.reduce((total, obj) => total + obj.price, 0);
+    let totalP = order.items.reduce(
+      (total, obj) => total + obj.price * obj.quantity,
+      0
+    );
     setTotalPrice(totalP);
     setDiscountedTotalPrice(discountedTotalPrice);
     // eslint-disable-next-line react-hooks/exhaustive-deps

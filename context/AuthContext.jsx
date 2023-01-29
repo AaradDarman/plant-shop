@@ -21,6 +21,7 @@ const AuthContext = ({ children }) => {
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [personalCode, setPersonalCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
@@ -73,6 +74,7 @@ const AuthContext = ({ children }) => {
       .unwrap()
       .then((originalPromiseResult) => {
         closeVerifyModal();
+        setUsername(originalPromiseResult);
         router.replace("/users/login");
       });
   };
@@ -130,6 +132,8 @@ const AuthContext = ({ children }) => {
         setLName,
         email,
         setEmail,
+        username,
+        setUsername,
         personalCode,
         setPersonalCode,
         phoneNumber,

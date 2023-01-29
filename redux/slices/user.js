@@ -154,6 +154,7 @@ export const signupVerify = createAsyncThunk(
           position: "bottom-center",
           closeOnClick: true,
         });
+        return data.userEmail;
       }
     } catch (e) {
       if (!e.response) {
