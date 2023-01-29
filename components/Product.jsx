@@ -95,7 +95,7 @@ const Product = ({
                         ).price
                       )
                 } تومان`}</span>
-                {discount && (
+                {hasDiscount && (
                   <span className="text-[14px] text-gray-400 line-through">
                     {numberWithCommas(maxPrice)}
                   </span>
