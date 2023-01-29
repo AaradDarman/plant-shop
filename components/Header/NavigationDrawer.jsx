@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
 const ProductsCategoryDropdown = dynamic(
-  () => import("./ProductsCategoryDropdown"),
+  () => import("./ProductsCategoryAccordion"),
   {
     ssr: false,
   }

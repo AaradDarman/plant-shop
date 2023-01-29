@@ -20,6 +20,7 @@ import {
 import MainLayout from "components/layouts/MainLayout";
 import AuthContext from "context/AuthContext";
 import { loadState } from "utils/browser-storage";
+import { toEnglishDigits } from "utils/number-helper";
 
 const StyledWraper = styled.div`
   height: calc(100vh - 58px);
@@ -46,6 +47,7 @@ const Login = (props) => {
       username,
       password,
     };
+    console.log(password);
     let localBasket = loadState();
     dispatch(login(payload))
       .unwrap()
@@ -125,8 +127,8 @@ const Login = (props) => {
               margin="dense"
               value={username}
               onChange={(e) => {
-                setUsername(e.target.value);
-                setFieldValue("username", e.target.value);
+                setUsername(toEnglishDigits(e.target.value));
+                setFieldValue("username", toEnglishDigits(e.target.value));
               }}
               onBlur={handleBlur("username")}
               error={errors.username && touched.username}
@@ -158,8 +160,8 @@ const Login = (props) => {
               margin="dense"
               value={password}
               onChange={(e) => {
-                setPassword(e.target.value);
-                setFieldValue("password", e.target.value);
+                setPassword(toEnglishDigits(e.target.value));
+                setFieldValue("password", toEnglishDigits(e.target.value));
               }}
               type="password"
               autoComplete="current-password"

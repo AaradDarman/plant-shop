@@ -9,6 +9,7 @@ import Head from "next/head";
 import MainLayout from "components/layouts/MainLayout";
 import AuthContext from "context/AuthContext";
 import { authContext } from "context/auth-context";
+import { toEnglishDigits } from "utils/number-helper";
 
 const Signup = () => {
   const {
@@ -218,8 +219,8 @@ const Signup = () => {
               size="small"
               value={personalCode}
               onChange={(e) => {
-                setPersonalCode(e.target.value);
-                setFieldValue("personalCode", e.target.value);
+                setPersonalCode(toEnglishDigits(e.target.value));
+                setFieldValue("personalCode", toEnglishDigits(e.target.value));
               }}
               onBlur={handleBlur("personalCode")}
               error={errors.personalCode && touched.personalCode}
@@ -252,8 +253,8 @@ const Signup = () => {
               size="small"
               value={phoneNumber}
               onChange={(e) => {
-                setPhoneNumber(e.target.value);
-                setFieldValue("phoneNumber", e.target.value);
+                setPhoneNumber(toEnglishDigits(e.target.value));
+                setFieldValue("phoneNumber", toEnglishDigits(e.target.value));
               }}
               onBlur={handleBlur("phoneNumber")}
               error={errors.phoneNumber && touched.phoneNumber}
@@ -286,8 +287,8 @@ const Signup = () => {
               size="small"
               value={password}
               onChange={(e) => {
-                setPassword(e.target.value);
-                setFieldValue("password", e.target.value);
+                setPassword(toEnglishDigits(e.target.value));
+                setFieldValue("password", toEnglishDigits(e.target.value));
               }}
               type="password"
               autoComplete="current-password"

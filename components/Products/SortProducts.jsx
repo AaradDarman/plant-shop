@@ -70,11 +70,10 @@ const SortProducts = ({ className, onTabChange }) => {
       <Tabs
         sx={{
           "& .MuiTab-root.Mui-selected": {
-            color: theme.palette.mode === "dark" ? "accent.main" : "accent.600",
+            color: "accent.main",
           },
           "& .MuiTabs-indicator": {
-            backgroundColor:
-              theme.palette.mode === "dark" ? "accent.main" : "accent.600",
+            backgroundColor: "accent.main",
           },
         }}
         className="relative flex flex-1"

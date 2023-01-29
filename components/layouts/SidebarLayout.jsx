@@ -33,6 +33,12 @@ const SidebarLayout = ({ children }) => {
   const router = useRouter();
   const { size, light, minPrice, maxPrice, search } = router.query;
   const { products } = useSelector((state) => state);
+  const [domLoaded, setDomLoaded] = useState(false);
+
+  useEffect(() => {
+    setDomLoaded(true);
+  }, []);
+
   const [searchTerm, setSearchTerm] = useState(search);
   const theme = useTheme();
 
@@ -89,31 +95,32 @@ const SidebarLayout = ({ children }) => {
         </StyledInputWraper>
         <h6 className="text-xl font-semibold">فیلتر ها</h6>
         <MyAccordion buttonClassName="py-2" title="سایز" open={size?.length}>
-          {products.sizes.map((item) => (
-            <FormControlLabel
-              key={item}
-              className="!mx-0 !flex flex-row-reverse !items-center justify-between"
-              control={
-                <Checkbox
-                  checked={
-                    Array.isArray(size) ? size?.includes(item) : size === item
-                  }
-                  sx={{
-                    // color: pink[800],
-                    "&.Mui-checked": {
-                      color:
-                        theme.palette.mode === "dark"
-                          ? "accent.main"
-                          : "accent.600",
-                    },
-                  }}
-                  alignIndicator="right"
-                  onChange={() => handleSizeFilterChange(item)}
-                />
-              }
-              label={item}
-            />
-          ))}
+          {domLoaded &&
+            products.sizes.map((item) => (
+              <FormControlLabel
+                key={item}
+                className="!mx-0 !flex flex-row-reverse !items-center justify-between"
+                control={
+                  <Checkbox
+                    checked={
+                      Array.isArray(size) ? size?.includes(item) : size === item
+                    }
+                    sx={{
+                      // color: pink[800],
+                      "&.Mui-checked": {
+                        color:
+                          theme.palette.mode === "dark"
+                            ? "accent.main"
+                            : "accent.600",
+                      },
+                    }}
+                    // alignIndicator="right"
+                    onChange={() => handleSizeFilterChange(item)}
+                  />
+                }
+                label={item}
+              />
+            ))}
         </MyAccordion>
         <MyAccordion buttonClassName="py-2" title="نور" open={light?.length}>
           {ProductLights.map((item) => (
@@ -136,7 +143,7 @@ const SidebarLayout = ({ children }) => {
                           : "accent.600",
                     },
                   }}
-                  alignIndicator="right"
+                  // alignIndicator="right"
                   onChange={() => handleLightFilterChange(item)}
                 />
               }

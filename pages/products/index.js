@@ -72,7 +72,7 @@ const Products = ({ products, productsCount, categoryHierarchy }) => {
         >
           {!router.query.sortBy ? "جدیدترین" : sortOptions[router.query.sortBy]}
         </Button>
-        <div className="flex items-center text-[13px] mr-auto">
+        <div className="mr-auto flex items-center text-[13px]">
           {productsCount}
           محصول
         </div>

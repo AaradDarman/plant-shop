@@ -16,12 +16,16 @@ const LoadingComponent = ({ show }) => {
         timeout: 500,
       }}
     >
-      <PulseLoader
-        size={6}
-        color={theme.palette.accent.main}
-        loading={true}
-        className="absolute top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]"
-      />
+      {show ? (
+        <PulseLoader
+          size={6}
+          color={theme.palette.accent.main}
+          loading={true}
+          className="absolute top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]"
+        />
+      ) : (
+        <></>
+      )}
     </Modal>
   );
 };

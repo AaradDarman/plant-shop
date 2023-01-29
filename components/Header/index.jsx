@@ -16,6 +16,10 @@ const NavigationDrawer = dynamic(() => import("./NavigationDrawer"), {
   ssr: false,
 });
 const CartItemsIcon = dynamic(() => import("./CartItemsIcon"), { ssr: false });
+const ProductsCategoryDropdown = dynamic(
+  () => import("./ProductsCategoryDropdown"),
+  { ssr: false }
+);
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,40 +62,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className="flex">
-                <MyPopover
-                  title={
-                    <Link href="/products" passHref>
-                      <a
-                        className={`py-2 px-3 font-bold ${
-                          router.pathname === "/products"
-                            ? " border-b-2 border-b-accent-400 text-slate-900 border-b-solid dark:text-slate-50"
-                            : "text-slate-400 hover:text-accent-700"
-                        }`}
-                      >
-                        محصولات
-                      </a>
-                    </Link>
-                  }
-                >
-                  <ul className="w-max bg-white dark:bg-primary-800">
-                    <li className="flex">
-                      <Link href="/products" passHref>
-                        <a className="flex-1 px-3 py-1 hover:bg-black/[.1] hover:text-accent-700 dark:hover:bg-primary-900">
-                          مشاهده همه
-                        </a>
-                      </Link>
-                    </li>
-                    {products.categories.map((category) => (
-                      <li className="flex" key={category.slug}>
-                        <Link href={`/products/${category.slug}`} passHref>
-                          <a className="flex-1 px-3 py-1 hover:bg-black/[.1] hover:text-accent-700 dark:hover:bg-primary-900">
-                            {category.name}
-                          </a>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </MyPopover>
+                <ProductsCategoryDropdown categories={products.categories} />
               </li>
               <li className="flex">
                 <Link href="/about" passHref>
