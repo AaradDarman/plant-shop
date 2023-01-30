@@ -5,9 +5,10 @@ import dynamic from "next/dynamic";
 
 import MainLayout from "components/layouts/MainLayout";
 import heroPic from "public/images/hero-plant.png";
-const ProductsSwiperComponent = dynamic(() => import("components/shared/ProductsSwiperComponent"));
+const ProductsSwiperComponent = dynamic(() =>
+  import("components/shared/ProductsSwiperComponent")
+);
 import api from "adapters/adapter";
-
 
 export default function Home({
   mostVisitedProducts,
@@ -18,7 +19,6 @@ export default function Home({
     <MainLayout {...otherProps}>
       <Head>
         <title>{`فروشگاه اینترنتی ${process.env.NEXT_PUBLIC_SITE_NAME}`}</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className="hero h-screen pt-20">
         <div className="absolute top-0 left-28 h-full w-1/3 bg-secondary-light dark:bg-secondary-dark-800"></div>
@@ -38,11 +38,11 @@ export default function Home({
           <span> بکار</span>
         </h1>
         <p className="relative z-10 w-56 py-4 text-slate-400">
-          Find your dream plant for your home decoration with us, and we will
-          make it happen.
+          گیاه رویایی خود را برای دکوراسیون منزل خود با ما بیابید و ما آن را
+          محقق خواهیم کرد.
         </p>
         <button className="relative z-10 rounded-md bg-accent-800 py-2 px-6 text-white shadow-md shadow-accent-500">
-          Explore More
+          کاوش بیشتر
         </button>
       </section>
       {/* most visited products */}
