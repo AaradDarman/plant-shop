@@ -150,7 +150,7 @@ const CheckoutLayout = ({ children }) => {
               </Button>
               <div className="total-price flex flex-col">
                 <span>جمع سبد خرید</span>
-                <span>{`${numberWithCommas(cart?.totalPrice)} تومان`}</span>
+                <span>{`${numberWithCommas(discountedTotalPrice)} تومان`}</span>
               </div>
             </div>
           </div>

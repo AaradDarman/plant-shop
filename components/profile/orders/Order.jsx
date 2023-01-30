@@ -8,7 +8,7 @@ import Image from "next/image";
 
 import {
   addHoursToDate,
-  getPersianDateWithMonthInLetters,
+  getPersianDateWithMonthInLetters, 
 } from "utils/date-helper";
 import { numberWithCommas } from "utils/number-helper";
 import DotDevider from "components/shared/DotDevider";
@@ -96,7 +96,7 @@ const Order = ({ order }) => {
             <DotDevider />
             <Typography variant="body1" className="order-total-price">
               <span className="ml-[8px] text-gray-400">مبلغ</span>
-              {`${numberWithCommas(totalPrice)} تومان`}
+              {`${numberWithCommas(discountedTotalPrice)} تومان`}
             </Typography>
             {totalDiscount != 0 && (
               <>
