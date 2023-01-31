@@ -42,14 +42,16 @@ const OrderContext = ({ children }) => {
         url.startsWith("/checkout") ||
         url.startsWith("/users/login") ||
         url.startsWith("/users/signup") ||
-        url.startsWith("/dashboard")||
-        url.startsWith("/profile/orders/") 
+        url.startsWith("/dashboard") ||
+        url.startsWith("/profile/orders/") ||
+        url === "/profile"
       )
         return;
       if (url.startsWith("/profile/orders")) setIsLoading(true);
     };
 
     const handleChangeEnd = (url) => {
+      if (url === "/profile"  ) return;
       setIsLoading(false);
     };
 

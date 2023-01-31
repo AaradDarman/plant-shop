@@ -38,99 +38,142 @@ const Profile = () => {
         <title>پروفایل</title>
       </Head>
       <div className="flex h-[288px] flex-col justify-evenly px-[2rem] py-[1rem]">
-        {isLoading ? (
-          <PulseLoader
-            size={6}
-            color={theme.palette.accent.main}
-            loading={true}
-            className="absolute top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]"
-          />
-        ) : (
-          <>
-            <div className="flex items-center justify-between">
-              <Typography
-                variant="h6"
-                className="border-b-[2px] border-b-accent-600 dark:border-b-accent-500"
+        <div className="flex items-center justify-between">
+          <Typography
+            variant="h6"
+            className="border-b-[2px] border-b-accent-600 dark:border-b-accent-500"
+          >
+            سفارش های من
+          </Typography>
+          <Link href="/profile/orders" passHref>
+            <a className="flex items-center hover:text-inherit">
+              مشاهده همه
+              <FontAwesomeIcon icon={faChevronLeft} width={19} />
+            </a>
+          </Link>
+        </div>
+        <div className="order-statuses flex items-center justify-evenly">
+          <Link href="/profile/orders?activeTab=in-progress" passHref>
+            <a className="flex flex-1 flex-col items-center hover:text-inherit lg:flex-row">
+              <Badge
+                overlap="circular"
+                invisible={isLg}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                color="info"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    borderRadius: "4px",
+                  },
+                }}
+                badgeContent={ordersCount?.inProgressOrdersCount}
+                showZero
               >
-                سفارش های من
-              </Typography>
-              <Link href="/profile/orders" passHref>
-                <a className="flex items-center hover:text-inherit">
-                  مشاهده همه
-                  <FontAwesomeIcon icon={faChevronLeft} width={19} />
-                </a>
-              </Link>
-            </div>
-            <div className="order-statuses flex items-center justify-evenly">
-              <Link href="/profile/orders?activeTab=in-progress" passHref>
-                <a className="flex flex-1 flex-col items-center hover:text-inherit lg:flex-row">
-                  <Badge
-                    overlap="circular"
-                    invisible={isLg}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "right",
-                    }}
-                    color="primary"
-                  >
-                    <Image src={inProgressImg} alt="order-in-progress" />
-                  </Badge>
-                  <div className="px-2">
-                    <Typography
-                      variant="body1"
-                      className="d-none d-lg-inline"
-                    >{`${ordersCount?.inProgressOrdersCount} سفارش`}</Typography>
-                    <Typography variant="subtitle2">جاری</Typography>
-                  </div>
-                </a>
-              </Link>
-              <Link href="/profile/orders?activeTab=delivered" passHref>
-                <a className="flex flex-1 flex-col items-center hover:text-inherit lg:flex-row">
-                  <Badge
-                    overlap="circular"
-                    invisible={isLg}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "right",
-                    }}
-                    color="primary"
-                  >
-                    <Image src={deliveredImg} alt="order-delivered" />
-                  </Badge>
-                  <div className="px-2">
-                    <Typography
-                      variant="body1"
-                      className="d-none d-lg-inline"
-                    >{`${ordersCount?.deliveredOrdersCount} سفارش`}</Typography>
-                    <Typography variant="subtitle2">تحویل شده</Typography>
-                  </div>
-                </a>
-              </Link>
-              <Link href="/profile/orders?activeTab=cancelled" passHref>
-                <a className="flex flex-1 flex-col items-center hover:text-inherit lg:flex-row">
-                  <Badge
-                    overlap="circular"
-                    invisible={isLg}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "right",
-                    }}
-                    color="primary"
-                  >
-                    <Image src={cancelledImg} alt="order-cancelled" />
-                  </Badge>
-                  <div className="px-2">
-                    <Typography
-                      variant="body1"
-                      className="d-none d-lg-inline"
-                    >{`${ordersCount?.cancelledOrdersCount} سفارش`}</Typography>
-                    <Typography variant="subtitle2">لغو شده</Typography>
-                  </div>
-                </a>
-              </Link>
-            </div>
-          </>
-        )}
+                <Image src={inProgressImg} alt="order-in-progress" />
+              </Badge>
+              <div className="lg:px-2">
+                <Typography
+                  variant="body1"
+                  className="!hidden !items-center lg:!flex"
+                >
+                  {isLoading ? (
+                    <PulseLoader
+                      size={6}
+                      color={theme.palette.accent.main}
+                      loading={true}
+                    />
+                  ) : (
+                    ` ${ordersCount?.inProgressOrdersCount} `
+                  )}
+                  سفارش
+                </Typography>
+                <Typography variant="subtitle2">جاری</Typography>
+              </div>
+            </a>
+          </Link>
+          <Link href="/profile/orders?activeTab=delivered" passHref>
+            <a className="flex flex-1 flex-col items-center hover:text-inherit lg:flex-row">
+              <Badge
+                overlap="circular"
+                invisible={isLg}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                color="info"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    borderRadius: "4px",
+                  },
+                }}
+                badgeContent={ordersCount?.deliveredOrdersCount}
+                showZero
+              >
+                <Image src={deliveredImg} alt="order-delivered" />
+              </Badge>
+              <div className="lg:px-2">
+                <Typography
+                  variant="body1"
+                  className="!hidden !items-center lg:!flex"
+                >
+                  {isLoading ? (
+                    <PulseLoader
+                      size={6}
+                      color={theme.palette.accent.main}
+                      loading={true}
+                    />
+                  ) : (
+                    ` ${ordersCount?.deliveredOrdersCount} `
+                  )}
+                  سفارش
+                </Typography>
+                <Typography variant="subtitle2">تحویل شده</Typography>
+              </div>
+            </a>
+          </Link>
+          <Link href="/profile/orders?activeTab=cancelled" passHref>
+            <a className="flex flex-1 flex-col items-center hover:text-inherit lg:flex-row">
+              <Badge
+                overlap="circular"
+                invisible={isLg}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                color="info"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    borderRadius: "4px",
+                  },
+                }}
+                badgeContent={ordersCount?.cancelledOrdersCount}
+                showZero
+              >
+                <Image src={cancelledImg} alt="order-cancelled" />
+              </Badge>
+              <div className="lg:px-2">
+                <Typography
+                  variant="body1"
+                  className="!hidden !items-center lg:!flex"
+                >
+                  {isLoading ? (
+                    <PulseLoader
+                      size={6}
+                      color={theme.palette.accent.main}
+                      loading={true}
+                    />
+                  ) : (
+                    ` ${ordersCount?.cancelledOrdersCount} `
+                  )}
+                  سفارش
+                </Typography>
+                <Typography variant="subtitle2">لغو شده</Typography>
+              </div>
+            </a>
+          </Link>
+        </div>
       </div>
     </>
   );

@@ -29,7 +29,7 @@ import warningImg from "public/images/warning.svg";
 const optionsCase = {
   "wait-for-pay": "در انتظار پرداخت",
   "in-progress": "در حال پردازش",
-  shipped: "در حال پردازش",
+  shipped: "ارسال شده",
   delivered: "تحویل شده",
   cancelled: "لغو شده",
 };

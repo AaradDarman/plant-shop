@@ -53,7 +53,7 @@ const Addresses = () => {
             key={address._id}
           >
             <div className="flex items-center justify-between py-1">
-              <span> {`${address.city} - ${address.postalAddress}`}</span>
+              <span> {`${address.postalAddress}`}</span>
               <AddressActionsPopover
                 address={address}
                 onDeleteClick={() => openDeleteAddressModal(address._id)}
