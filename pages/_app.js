@@ -23,11 +23,13 @@ import { Provider } from "react-redux";
 import isEmpty from "lodash/isEmpty";
 import debounce from "lodash/debounce";
 import { saveState } from "utils/browser-storage";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import NProgress from "nprogress";
 import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
+import { useEffect } from "react";
+import * as ga from "lib/ga";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -48,6 +50,21 @@ function MyApp({
 }) {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
   const getLayout = Component.getLayout || ((page) => page);
+  const router = useRouter();
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      ga.pageview(url);
+    };
+    //When the component is mounted, subscribe to router changes
+    //and log those page views
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
   store.subscribe(
     debounce(() => {

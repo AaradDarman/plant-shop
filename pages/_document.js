@@ -32,8 +32,29 @@ class MyDocument extends Document {
           href="assets/favicon-16x16.png"
         />
         <link rel="manifest" href="assets/site.webmanifest" />
-        <link rel="mask-icon" href="assets/safari-pinned-tab.svg" color="#2cad42" />
+        <link
+          rel="mask-icon"
+          href="assets/safari-pinned-tab.svg"
+          color="#2cad42"
+        />
         <meta name="msapplication-TileColor" content="#010101" />
+        {/* Global Site Tag (gtag.js) - Google Analytics */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+              page_path: window.location.pathname,
+            });
+          `,
+          }}
+        />
       </Head>
       <body style={{ direction: "rtl" }}>
         <Main />
